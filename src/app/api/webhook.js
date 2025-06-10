@@ -1,6 +1,6 @@
 
 export default async function handler(req, res) {
-  const VERIFY_TOKEN = "your_verify_token"; // Match this in Meta App
+  const VERIFY_TOKEN = "birthday123"; // Match this in Meta App
 
   if (req.method === "GET") {
     // Webhook Verification
