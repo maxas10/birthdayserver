@@ -1,35 +1,25 @@
-import fetch from "node-fetch";
+
 import dotenv from "dotenv";
-  dotenv.config();
-import express from "express";
-
-
+dotenv.config();
+import fetch from "node-fetch";
 const token = process.env.token;
-// fetch("https://graph.instagram.com/v23.0/me/media?access_token=" + token).then(res => res.json()).then(data => console.log(data));
 function sendMessage() {
-  fetch("https://graph.instagram.com/v23.0/me/messages", {
+  fetch("https://graph.facebook.com/v18.0/me/messages", {
     method: "POST",
     headers: {
       "Authorization": "Bearer " + token,
       "Content-Type": "application/json",
     },
-    body: {
-      "recipient": {"id": "18044670743627843"},
-      "message": {"text": "Hello!"}
-    }
+    body: JSON.stringify({
+        recipient: { id: "PSID" }, // PSID = Page Scoped ID of the user
+        message: { text: "Hello!" }
+    })
   }).then(res => res.json()).then(data => console.log(data))
 }
 
 sendMessage();  
 
-const app = express();
-app.get("/callback", (req,res) => {
-    const code = req.query;
-    console.log("Auth code: " + code);
-    res.send("Callback recieved!");
-})
-
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`)
-})
+app.post('/webhook', express.json(), (req, res) => {
+  console.log('📩 Received webhook:', JSON.stringify(req.body, null, 2));
+  res.sendStatus(200);
+});
