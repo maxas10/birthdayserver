@@ -30,11 +30,12 @@ export default function handler(req, res) {
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
 
-  if (mode === "subscribe" && token === VERIFY_TOKEN) {
+  if (mode === "subscribe" && token === verify_token) {
     console.log("✅ WEBHOOK VERIFIED");
     res.status(200).send(challenge);
   } else {
     res.sendStatus(403);
   }
   console.log("running");
+  res.sendStatus(200);
 }
