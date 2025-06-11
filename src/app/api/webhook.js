@@ -11,6 +11,7 @@ export default async function handler(req, res) {
     if (mode === "subscribe" && token === VERIFY_TOKEN) {
       console.log("✅ WEBHOOK VERIFIED");
       res.status(200).send(challenge);
+      console.log(challenge)
     } else {
       res.sendStatus(403);
     }
