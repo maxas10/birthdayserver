@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-    const code = req.query;
+    const code = req.query.code;
 
     if(!code) {
         console.log("instagram didn't send you code");
@@ -11,7 +11,9 @@ export default async function handler(req, res) {
             client_secret: process.env.secret,
             redirect_uri: process.env.redirect,
             code,
-        }));
+        }), {
+            method: "GET"
+        });
 
         const data = await response.json();
         console.log(data);

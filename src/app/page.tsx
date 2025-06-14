@@ -1,10 +1,10 @@
 import Image from "next/image";
-
+import LoginWithInstagram from "./login";
 export default function Home() {
   return (
     <div>
     <p>Birthdays</p>
-    <p id='status'></p>
+    <LoginWithInstagram></LoginWithInstagram>
     </div>
   );
 }
