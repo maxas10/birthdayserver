@@ -1,9 +1,11 @@
+'use client';
+
 export default function LoginWithInstagram() {
   const handleLogin = () => {
     const redirectUri = encodeURIComponent(
-      "https://yourdomain.com/api/instagram-callback"
+      String(process.env.NEXT_PUBLIC_REDIRECT)
     ); // Replace with your real callback URL
-    const clientId = "YOUR_INSTAGRAM_APP_ID";
+    const clientId:any = process.env.NEXT_PUBLIC_ID;
 
     const authUrl =
       `https://www.facebook.com/v18.0/dialog/oauth?` +
@@ -13,7 +15,7 @@ export default function LoginWithInstagram() {
         scope: "instagram_basic, pages_show_list",
         response_type: "code",
       });
-
+    alert(authUrl)
     window.location.href = authUrl;
   };
   return <button onClick={handleLogin}>Login with Instagram</button>;

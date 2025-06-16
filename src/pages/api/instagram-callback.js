@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
     try {
         const response = await fetch("https://graph.facebook.com/v18.0/oauth/access_token?" + new URLSearchParams({
-            client_id: process.env.id,
+            client_id: process.env.NEXT_PUBLIC_ID,
             client_secret: process.env.secret,
             redirect_uri: process.env.redirect,
             code,
