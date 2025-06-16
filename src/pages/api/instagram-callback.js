@@ -24,6 +24,6 @@ export default async function handler(req, res) {
             res.status(500).json(data);
         }
     } catch(error) {
-        res.status(500).send("token exchange failed")
+        res.status(500).send(error)
     }
 }

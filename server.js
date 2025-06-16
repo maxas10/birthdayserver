@@ -7,7 +7,7 @@ function sendMessage() {
   fetch("https://graph.facebook.com/v18.0/me/messages", {
     method: "POST",
     headers: {
-      "Authorization": "Bearer " + token,
+      "Authorization": "Bearer IGAAKWz72RzUdBZAE5GZAmZA5OVdNZAG9MbTZAqaWU0ZAUp0ellHU3VxcEplR1JNQzFKSzBXbUFiT2o2OXNxSEFEeWF2RTdtWmV2TEZA3TEx4QUg0akxyeHZAyX2d4SU1HWjVCMjBsMnNZAeGFKMVg2Mk10Qi1aOVVqZA0NlWWZA5WGN1MHlCdwZDZD",
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
