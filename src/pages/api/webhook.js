@@ -38,4 +38,26 @@ export default function handler(req, res) {
       return res.status(403).send("Forbidden");
     }
   }
+  
+  if (req.method === "POST") {
+    const body = req.body;
+
+    if (body.object === "instagram") {
+      body.entry.forEach(entry => {
+        entry.messaging.forEach(event => {
+          const psid = event.sender.id;
+          console.log("📩 Received message from PSID:", psid);
+          // Optional: Log the full message
+          console.log("📝 Message content:", event.message?.text);
+        });
+      });
+
+      return res.status(200).send("EVENT_RECEIVED");
+    } else {
+      return res.sendStatus(404);
+    }
+  }
+
+  res.setHeader("Allow", ["GET", "POST"]);
+  return res.status(405).end(`Method ${req.method} Not Allowed`);
 }
