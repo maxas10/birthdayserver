@@ -38,7 +38,7 @@ export default function handler(req, res) {
       return res.status(403).send("Forbidden");
     }
   }
-  
+
   if (req.method === "POST") {
     const body = req.body;
 
@@ -66,14 +66,21 @@ export default function handler(req, res) {
 }
 
 async function sendMessage(psid) {
-  const req = await fetch("https://graph.facebook.com/LATEST_API_VERSION/me/messages?access_token=" + process.env.page_token, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      recipient: { id: psid }, // PSID = Page Scoped ID of the user
-      message: { text: "You are chatting with my bot 🤖 \n\n Hello!" }
+  try {
+    const req = await fetch("https://graph.facebook.com/LATEST_API_VERSION/me/messages?access_token=" + process.env.page_token, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        recipient: { id: psid }, // PSID = Page Scoped ID of the user
+        message: { text: "You are chatting with my bot 🤖 \n\n Hello!" }
+      })
     })
-  })
+
+    const res = await req.json();
+    console.log(res);
+  } catch (error) {
+    console.log("Error: ", error);
+  }
 }
