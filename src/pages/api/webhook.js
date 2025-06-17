@@ -49,6 +49,9 @@ export default function handler(req, res) {
           console.log("📩 Received message from PSID:", psid);
           // Optional: Log the full message
           console.log("📝 Message content:", event.message?.text);
+
+          // send message back
+          sendMessage(psid);
         });
       });
 
@@ -60,4 +63,17 @@ export default function handler(req, res) {
 
   res.setHeader("Allow", ["GET", "POST"]);
   return res.status(405).end(`Method ${req.method} Not Allowed`);
+}
+
+async function sendMessage(psid) {
+  const req = await fetch("https://graph.facebook.com/LATEST_API_VERSION/me/messages?access_token=" + process.env.page_token, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      recipient: { id: psid }, // PSID = Page Scoped ID of the user
+      message: { text: "You are chatting with my bot 🤖 \n\n Hello!" }
+    })
+  })
 }
