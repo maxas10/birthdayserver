@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
         if (data.access_token) {
             // Success! You can now store or use the token
-            exchangeCodeForAccessToken(code);
+            exchangeCodeForAccessToken(data.access_token);
         } else {
             return res.status(500).json({ error: 'Token exchange failed', details: data });
         }
@@ -28,14 +28,14 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Unexpected error' });
     }
 
-    async function exchangeCodeForAccessToken(code) {
+    async function exchangeCodeForAccessToken(token) {
         const params2 = new URLSearchParams({
             grant_type: 'fb_exchange_token',
             client_id: process.env.app_id,
             client_secret: process.env.secret,
-            fb_exchange_token: code,
+            fb_exchange_token: token,
         });
-        console.log(code)
+        console.log(token)
 
         const response = await fetch(`https://graph.facebook.com/v18.0/oauth/access_token?${params2}`);
         const data = await response.json();
