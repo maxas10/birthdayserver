@@ -28,7 +28,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Unexpected error' });
     }
 
-    function exchangeCodeForAccessToken(code) {
+    async function exchangeCodeForAccessToken(code) {
         const params2 = new URLSearchParams({
             grant_type: 'fb_exchange_token',
             client_id: process.env.app_id,
@@ -42,3 +42,4 @@ export default async function handler(req, res) {
 
         console.log(data); // Contains long-lived token
     }
+}
