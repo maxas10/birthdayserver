@@ -27,17 +27,18 @@ export default async function handler(req, res) {
         }
     } catch (error) {
         return res.status(500).json({ error: 'Unexpected error' });
+    } finally {
+        const params2 = new URLSearchParams({
+            grant_type: 'fb_exchange_token',
+            client_id: process.env.app_id,
+            client_secret: process.env.secret,
+            fb_exchange_token: shortaccesstoken,
+        });
+        console.log(shortaccesstoken)
+
+        const response = await fetch(`https://graph.facebook.com/v18.0/oauth/access_token?${params2}`);
+        const data = await response.json();
+
+        console.log(data); // Contains long-lived token
     }
-
-    const params2 = new URLSearchParams({
-        grant_type: 'fb_exchange_token',
-        client_id: process.env.app_id,
-        client_secret: process.env.secret,
-        fb_exchange_token: shortaccesstoken,
-    });
-
-    const response = await fetch(`https://graph.facebook.com/v18.0/oauth/access_token?${params2}`);
-    const data = await response.json();
-
-    console.log(data); // Contains long-lived token
 }
