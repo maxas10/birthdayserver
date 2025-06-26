@@ -7,9 +7,9 @@ export default async function handler(req, res) {
 
   // Build token exchange URL
   const params = new URLSearchParams({
-    client_id: process.env.FB_APP_ID,
-    client_secret: process.env.FB_APP_SECRET,
-    redirect_uri: process.env.FB_REDIRECT_URI,
+    client_id: process.env.app_id,
+    client_secret: process.env.secret,
+    redirect_uri: process.env.NEXT_PUBLIC_REDIRECT,
     code,
   });
 
