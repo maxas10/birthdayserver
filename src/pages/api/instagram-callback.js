@@ -1,6 +1,5 @@
 export default async function handler(req, res) {
     const { code } = req.query;
-    let shortaccesstoken;
     if (!code) {
         return res.status(400).json({ error: 'Missing authorization code' });
     }
@@ -21,18 +20,20 @@ export default async function handler(req, res) {
 
         if (data.access_token) {
             // Success! You can now store or use the token
-
+            exchangeCodeForAccessToken(code);
         } else {
             return res.status(500).json({ error: 'Token exchange failed', details: data });
         }
     } catch (error) {
         return res.status(500).json({ error: 'Unexpected error' });
-    } finally {
+    }
+
+    function exchangeCodeForAccessToken(code) {
         const params2 = new URLSearchParams({
             grant_type: 'fb_exchange_token',
             client_id: process.env.app_id,
             client_secret: process.env.secret,
-            fb_exchange_token: shortaccesstoken,
+            fb_exchange_token: code,
         });
         console.log(shortaccesstoken)
 
@@ -41,4 +42,3 @@ export default async function handler(req, res) {
 
         console.log(data); // Contains long-lived token
     }
-}
