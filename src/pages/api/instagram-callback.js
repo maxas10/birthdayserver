@@ -35,7 +35,7 @@ export default async function handler(req, res) {
             client_secret: process.env.secret,
             fb_exchange_token: code,
         });
-        console.log(shortaccesstoken)
+        console.log(code)
 
         const response = await fetch(`https://graph.facebook.com/v18.0/oauth/access_token?${params2}`);
         const data = await response.json();
