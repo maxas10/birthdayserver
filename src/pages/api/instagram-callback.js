@@ -5,6 +5,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing authorization code' });
   }
 
+  console.log(process.env.app_id, process.env.secret, process.env.NEXT_PUBLIC_REDIRECT, code);
   // Build token exchange URL
   const params = new URLSearchParams({
     client_id: process.env.app_id,
