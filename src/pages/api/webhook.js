@@ -67,6 +67,7 @@ export default function handler(req, res) {
 
 async function sendMessage(psid) {
   try {
+    console.log('sdf');
     const req = await fetch("https://graph.facebook.com/LATEST_API_VERSION/me/messages?access_token=" + process.env.page_token, {
       method: "POST",
       headers: {
